@@ -24,8 +24,6 @@ public class User {
     private String email;
     @Column(nullable = false)
     private String password;
-    @OneToMany(mappedBy = "user")
-    private Set<Task> tasks = new HashSet<>();
 
     public void setId(Long id) {
         this.id = id;
@@ -39,7 +37,4 @@ public class User {
         this.password = password;
     }
 
-    public void setTasks(Set<Task> tasks) {
-        this.tasks = tasks;
-    }
 }

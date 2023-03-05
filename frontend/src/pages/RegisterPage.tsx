@@ -32,13 +32,14 @@ export const RegisterPage: FC = () => {
 
             try {
                 setLoading(true);
-                await axios.post("http://localhost:8080/api/v1/createUser", newUser);
                 await new Promise(resolve => setTimeout(resolve, 2000));
+                await axios.post("http://localhost:8080/api/v1/createUser", newUser);
             } catch (error: any) {
                 const axiosError = error as AxiosError;
 
                 // @ts-ignore
                 const errorData: AuthError = axiosError.response.data;
+                await new Promise(resolve => setTimeout(resolve, 2000));
                 newError = {...newError, any: true, message: errorData.message, internal: true};
             } finally {
                 setLoading(false);

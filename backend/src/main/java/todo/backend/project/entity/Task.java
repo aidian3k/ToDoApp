@@ -19,6 +19,4 @@ public class Task {
     private String name;
     private String description;
     private Date endDate;
-    @ManyToOne
-    private User user;
 }
