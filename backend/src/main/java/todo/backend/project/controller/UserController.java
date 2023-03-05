@@ -2,6 +2,7 @@ package todo.backend.project.controller;
 
 import org.springframework.web.bind.annotation.*;
 import todo.backend.project.entity.User;
+import todo.backend.project.exception.authentication.EmailTakenException;
 import todo.backend.project.service.UserService;
 
 import java.util.List;
@@ -17,7 +18,7 @@ public class UserController {
     }
 
     @PostMapping("/createUser")
-    public User createUser(@RequestBody User newUser) {
+    public User createUser(@RequestBody User newUser) throws EmailTakenException {
         return userService.addUser(newUser);
     }
 

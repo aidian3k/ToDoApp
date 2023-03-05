@@ -26,4 +26,20 @@ public class User {
     private String password;
     @OneToMany(mappedBy = "user")
     private Set<Task> tasks = new HashSet<>();
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setTasks(Set<Task> tasks) {
+        this.tasks = tasks;
+    }
 }

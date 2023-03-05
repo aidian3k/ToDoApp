@@ -2,6 +2,7 @@ package todo.backend.project.service;
 
 import org.springframework.stereotype.Service;
 import todo.backend.project.entity.User;
+import todo.backend.project.exception.authentication.EmailTakenException;
 import todo.backend.project.repository.UserRepository;
 
 import java.util.List;
@@ -19,6 +20,7 @@ public class UserService {
     }
 
     public User addUser(User user) {
+        validateUser(user);
         userRepository.save(user);
 
         return user;
@@ -26,5 +28,15 @@ public class UserService {
 
     public List<User> getAllUsers() {
         return userRepository.findAll();
+    }
+
+    private void validateUser(User newUser) {
+        List<User> users = getUsers();
+
+        for (User user : users) {
+            if (user.getEmail().equals(newUser.getEmail())) {
+                throw new EmailTakenException("/api/v1/createUser", "Email is already taken!");
+            }
+        }
     }
 }

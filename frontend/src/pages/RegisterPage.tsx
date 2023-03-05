@@ -5,9 +5,9 @@ import logo from '../resources/logo.png';
 import ErrorRegistration from "../model/authentication/RegistrationError";
 import User from "../model/authentication/User";
 import {validateRegistrationData} from "../features/authentication/validateRegistration";
-import {postUser} from "../features/authentication/registerUser";
 import {Spinner} from "../components/errors/Spinner";
 import {InputError} from "../components/errors/InputError";
+import axios, {AxiosError} from "axios";
 
 export const RegisterPage: FC = () => {
     const [error, setError] = useState<ErrorRegistration>({
@@ -20,20 +20,32 @@ export const RegisterPage: FC = () => {
     const [loading, setLoading] = useState<boolean>(false);
     const navigate = useNavigate();
 
-
-    async function registerUser() {
-        // @ts-ignore
-        const newUser: User = {email: emailInput.current.value, password: passwordInput.current.value};
-        await postUser(newUser, setLoading, setError);
-    }
-
     async function handleRegistration() {
         if (validateRegistrationData(emailInput, secondPasswordInput, passwordInput, setError)) {
             return;
         } else {
-            await registerUser();
+            // @ts-ignore
+            const newUser: User = {email: emailInput.current.value, password: passwordInput.current.value};
+            let newError: ErrorRegistration = {
+                email: false, password: false, internal: false, secondPassword: false, message: '', any: false
+            };
 
-            if(!error.any) {
+            try {
+                setLoading(true);
+                await axios.post("http://localhost:8080/api/v1/createUser", newUser);
+                await new Promise(resolve => setTimeout(resolve, 2000));
+            } catch (error: any) {
+                const axiosError = error as AxiosError;
+
+                // @ts-ignore
+                const errorData: AuthError = axiosError.response.data;
+                newError = {...newError, any: true, message: errorData.message, internal: true};
+            } finally {
+                setLoading(false);
+                setError(newError);
+            }
+
+            if (!newError.any) {
                 navigate('/login');
             }
         }
@@ -110,7 +122,7 @@ export const RegisterPage: FC = () => {
                         {loading && <Spinner/>}
                     </button>
 
-                    {error.internal && <InputError errorMessage={'Internal error while signing up!'}/>}
+                    {error.internal && <InputError errorMessage={error.message}/>}
 
                     <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                         <span>Already have an account? </span>
