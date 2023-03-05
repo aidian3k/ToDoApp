@@ -2,10 +2,19 @@ package todo.backend.project.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "USERS")
 public class User {
     @Id
@@ -16,6 +25,5 @@ public class User {
     @Column(nullable = false)
     private String password;
     @OneToMany(mappedBy = "user")
-    @JsonIgnore
-    private Set<Task> tasks;
+    private Set<Task> tasks = new HashSet<>();
 }

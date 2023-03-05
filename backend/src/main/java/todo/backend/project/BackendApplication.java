@@ -3,19 +3,14 @@ package todo.backend.project;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import todo.backend.project.entity.User;
 import todo.backend.project.repository.UserRepository;
-import todo.backend.project.service.UserService;
-
-import java.util.List;
 
 @SpringBootApplication
-public class BackendApplication implements CommandLineRunner{
+public class BackendApplication implements CommandLineRunner {
+    private UserRepository userRepository;
 
-    private final UserService userService;
-
-    public BackendApplication(UserService userService) {
-        this.userService = userService;
+    public BackendApplication(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
     public static void main(String[] args) {
@@ -24,6 +19,6 @@ public class BackendApplication implements CommandLineRunner{
 
     @Override
     public void run(String... args) throws Exception {
-        System.out.println(userService.getUsers().size());
+        System.out.println(userRepository.findAll().size());
     }
 }
