@@ -6,6 +6,8 @@ import {createBrowserRouter, RouterProvider} from "react-router-dom";
 import {LoginPage} from "./pages/LoginPage";
 import {RegisterPage} from "./pages/RegisterPage";
 import {configureStore} from "@reduxjs/toolkit";
+import {Navbar} from "./components/Navbar";
+import {MainPage} from "./pages/MainPage";
 
 const routes = createBrowserRouter([
     {
@@ -15,6 +17,10 @@ const routes = createBrowserRouter([
     {
         path: '/register',
         element: <RegisterPage/>
+    },
+    {
+        path: '/',
+        element: <MainPage/>
     }
 ])
 

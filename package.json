@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "flowbite-datepicker": "^1.2.2",
+    "tailwind-datepicker-react": "^1.2.3"
+  }
+}
