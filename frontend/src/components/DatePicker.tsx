@@ -30,7 +30,7 @@ export const DatePicker: FC = () => {
     const displayElements: JSX.Element[] = createElements();
 
     return (
-        <div className={'w-full flex justify-center p-3 bg-blue-800'}>
+        <div className={'w-full flex justify-center p-3 items-center'}>
             <ul className={'inline-flex items-center gap-1'}>
                 <LeftPointer/>
                 {displayElements}
@@ -43,7 +43,7 @@ export const DatePicker: FC = () => {
 const ListElement: FC<{ numberDate: number, dayWeek: string }> = (props) => {
     return (
         <button
-            className="w-14 h-14 flex flex-col p-3 border border-sky-500 rounded-md bg-pink-800 text-center items-center hover:bg-pink-600">
+            className="sm:w-14 sm:h-14 w-10 h-10 flex flex-col sm:p-3 p-1 border border-sky-500 rounded-md bg-pink-800 text-center items-center hover:bg-pink-600 text-center">
             <p className="text-xs font-medium text-gray-800 dark:text-white">{props.numberDate}</p>
             <p className="text-xs font-medium text-gray-800 dark:text-white">{props.dayWeek}</p>
         </button>
@@ -53,7 +53,7 @@ const ListElement: FC<{ numberDate: number, dayWeek: string }> = (props) => {
 const LeftPointer: FC = () => {
     return (
         <button
-            className="block w-12 h-12 px-3 py-2 ml-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-l-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+            className="block sm:w-12 sm:h-12 w-9 h-9 px-3 py-2 ml-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-l-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
             <span className="sr-only">Previous</span>
             <svg aria-hidden="true" className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
                  xmlns="http://www.w3.org/2000/svg">
@@ -68,7 +68,7 @@ const LeftPointer: FC = () => {
 const RightPointer: FC = () => {
     return (
         <button
-            className="block px-3 py-2 w-12 h-12 leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+            className="block px-3 py-2 w-12 h-12 sm:w-12 sm:h-12 w-9 h-9 leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
             <span className="sr-only">Next</span>
             <svg aria-hidden="true" className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
                  xmlns="http://www.w3.org/2000/svg">
