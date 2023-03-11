@@ -40,7 +40,7 @@ export const DatePicker: FC = () => {
     )
 }
 
-const ListElement: FC<{ numberDate: number, dayWeek: string }> = (props) => {
+export const ListElement: FC<{ numberDate: number, dayWeek: string }> = (props) => {
     return (
         <button
             className="sm:w-14 sm:h-14 w-10 h-10 flex flex-col sm:p-3 p-1 border border-sky-500 rounded-md bg-pink-800 text-center items-center hover:bg-pink-600 text-center">

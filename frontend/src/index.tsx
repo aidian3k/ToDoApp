@@ -7,6 +7,7 @@ import {LoginPage} from "./pages/LoginPage";
 import {RegisterPage} from "./pages/RegisterPage";
 import {configureStore} from "@reduxjs/toolkit";
 import {MainPage} from "./pages/MainPage";
+import {NewToDo} from "./pages/NewToDo";
 
 const routes = createBrowserRouter([
     {
@@ -18,8 +19,12 @@ const routes = createBrowserRouter([
         element: <RegisterPage/>
     },
     {
-        path: '/',
+        path: '/main-page',
         element: <MainPage/>
+    },
+    {
+        path: '/new-todo',
+        element: <NewToDo/>
     }
 ])
 
