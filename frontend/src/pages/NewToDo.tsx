@@ -1,7 +1,8 @@
 import {FC} from "react";
-import {NewTaskNav} from "../components/NewTaskNav";
-import {CalendarPicker, MonthHeader} from "../components/CalendarPicker";
-import {ToDoCreator} from "../components/ToDoCreator";
+import {NewTaskNav} from "../components/NewToDo/NewTaskNav";
+import {CalendarPicker, MonthHeader} from "../components/NewToDo/CalendarPicker";
+import {ToDoCreator} from "../components/NewToDo/ToDoCreator";
+import {Footer} from "./Footer";
 
 export const NewToDo: FC = () => {
     return (
@@ -10,6 +11,7 @@ export const NewToDo: FC = () => {
             <MonthHeader/>
             <CalendarPicker/>
             <ToDoCreator/>
+            <Footer/>
         </div>
     )
 }

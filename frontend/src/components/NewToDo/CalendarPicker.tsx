@@ -1,6 +1,6 @@
 import React, {FC} from "react";
-import {ListElement} from "./DatePicker";
-import {DateObject, days, useDate} from "../hooks/useDate";
+import {ListElement} from "../DatePicker";
+import {DateObject, days, useDate} from "../../hooks/useDate";
 
 
 

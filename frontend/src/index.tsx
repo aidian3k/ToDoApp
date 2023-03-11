@@ -5,9 +5,9 @@ import {Provider} from "react-redux";
 import {createBrowserRouter, RouterProvider} from "react-router-dom";
 import {LoginPage} from "./pages/LoginPage";
 import {RegisterPage} from "./pages/RegisterPage";
-import {configureStore} from "@reduxjs/toolkit";
 import {MainPage} from "./pages/MainPage";
 import {NewToDo} from "./pages/NewToDo";
+import store from "./redux/store";
 
 const routes = createBrowserRouter([
     {
@@ -28,11 +28,6 @@ const routes = createBrowserRouter([
     }
 ])
 
-const store = configureStore({
-    reducer: {}
-});
-
-
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 
 root.render(
@@ -42,6 +37,3 @@ root.render(
         </Provider>
     </React.StrictMode>
 );
-
-export default store;
-export type RootState = ReturnType<typeof store.getState>;

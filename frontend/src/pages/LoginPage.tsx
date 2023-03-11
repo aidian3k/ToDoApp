@@ -7,6 +7,9 @@ import User from "../model/authentication/User";
 import {Spinner} from "../components/errors/Spinner";
 import {InputError} from "../components/errors/InputError";
 import axios from "axios";
+import {Footer} from "./Footer";
+import {useDispatch} from "react-redux";
+import {login} from "../redux/UserSlice";
 
 export const LoginPage: FC = () => {
     const emailInput = useRef<HTMLInputElement>(null);
@@ -15,6 +18,7 @@ export const LoginPage: FC = () => {
     const initialState: ErrorLogin = {internal: false, message: ''};
     const [error, setError] = useState<ErrorLogin>(initialState);
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const checkData = async () => {
         if (emailInput.current === null || passwordInput.current === null) {
@@ -35,6 +39,7 @@ export const LoginPage: FC = () => {
             if (foundUser === undefined || foundUser.password !== password) {
                 newError = {...error, message: 'Invalid email or password!', internal: true};
             } else {
+                dispatch(login({email: foundUser.name, password: foundUser.password, tasks: foundUser.tasks, id: foundUser.id}));
                 navigate('/main-page');
             }
         } catch (error: any) {
@@ -46,7 +51,9 @@ export const LoginPage: FC = () => {
         }
     }
 
-    return (<section className="bg-gray-900">
+    return (
+        <>
+        <section className="bg-gray-900">
         <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
             <Link to="/login"
                   className="flex items-center mb-6 text-2xl font-semi-bold text-gray-900 dark:text-white">
@@ -111,5 +118,7 @@ export const LoginPage: FC = () => {
                 </div>
             </div>
         </div>
-    </section>)
+    </section>
+            <Footer/>
+            </>)
 }

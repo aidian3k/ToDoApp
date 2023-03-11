@@ -1,13 +1,18 @@
 import React, {FC, useState} from "react";
 // @ts-ignore
 import logo from '../resources/logo.png';
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 // @ts-ignore
 import avatar from '../resources/avatar.png'
 import {DateObject, days, useDate} from "../hooks/useDate";
+import {useDispatch, useSelector} from "react-redux";
+import {RootState} from "../redux/store";
+import {User} from "../model/logic/User";
+import {signOut} from "../redux/UserSlice";
 export const Navbar: FC = () => {
     const [showingMenu, setShowingMenu] = useState<boolean>(false);
     const date: DateObject = useDate();
+    const user: User = useSelector<RootState, User>(state => state.user.value);
 
     return (
         <nav className="bg-black border-gray-200 px-2 sm:px-4 py-2.5  dark:bg-gray-900">
@@ -40,7 +45,7 @@ export const Navbar: FC = () => {
                     </div>
 
                     <h1 className="sm:ml-2 ml-0 text-xl font-extrabold text-gray-900 dark:text-white">
-                        <span className="text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400">Welcome</span> Adrian
+                        <span className="text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400">Welcome</span>{user.email.substring(10)}
                         </h1>
                 </div>
 
@@ -50,13 +55,17 @@ export const Navbar: FC = () => {
 }
 
 export const ClickedMenu: FC = () => {
+    const user = useSelector<RootState, User>(state => state.user.value);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
     return (
         <div
             className="z-50 my-4 text-base list-none rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600">
             <div className="px-4 py-3">
-                <span className="block text-sm text-gray-900 dark:text-white">Adrian Nowosielski</span>
+                <span className="block text-sm text-gray-900 dark:text-white"></span>
                 <span
-                    className="block text-sm font-medium text-gray-500 truncate dark:text-gray-400">adrian.nowosielski1@gmail.com</span>
+                    className="block text-sm font-medium text-gray-500 truncate dark:text-gray-400">{user.email}</span>
             </div>
             <ul className="py-2" aria-labelledby="user-menu-button">
                 <li>
@@ -64,9 +73,13 @@ export const ClickedMenu: FC = () => {
                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Settings</Link>
                 </li>
                 <li>
-                    <Link to="#"
-                       className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Sign
-                        out</Link>
+                    <button
+                       className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                        onClick={() => {
+                            dispatch(signOut());
+                            navigate('/login');
+                        }}
+                    >Sign out</button>
                 </li>
             </ul>
         </div>

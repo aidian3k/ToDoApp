@@ -1,18 +1,22 @@
 import React, {FC, useState} from "react";
 import {Link, useNavigate} from "react-router-dom";
 // @ts-ignore
-import logo from "../resources/logo.png";
-import {DateObject, days, useDate} from "../hooks/useDate";
+import logo from "../../resources/logo.png";
+import {DateObject, days, useDate} from "../../hooks/useDate";
 // @ts-ignore
-import avatar from "../resources/avatar.png";
-import {ClickedMenu} from "./Navbar";
+import avatar from "../../resources/avatar.png";
+import {ClickedMenu} from "../Navbar";
 // @ts-ignore
-import backIcon from '../resources/back-icon.svg';
+import backIcon from '../../resources/back-icon.svg';
+import {useDispatch, useSelector} from "react-redux";
+import {RootState} from "../../redux/store";
+import {User} from "../../model/logic/User";
 
 export const NewTaskNav: FC = () => {
     const [showingMenu, setShowingMenu] = useState<boolean>(false);
     const date: DateObject = useDate();
     const navigate = useNavigate();
+    const user = useSelector<RootState, User>(state => state.user.value);
 
     return (
         <nav className="bg-black border-gray-200 px-2 sm:px-4 py-2.5 dark:bg-gray-900">
@@ -49,7 +53,7 @@ export const NewTaskNav: FC = () => {
                     </div>
 
                     <h1 className="sm:ml-2 ml-0 text-xl font-extrabold text-gray-900 dark:text-white">
-                        <span className="text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400">Welcome</span> Adrian
+                        <span className="text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400">Welcome</span> {user.email}
                     </h1>
                 </div>
 
