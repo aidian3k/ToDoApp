@@ -7,8 +7,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -24,17 +24,7 @@ public class User {
     private String email;
     @Column(nullable = false)
     private String password;
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
+    @OneToMany(mappedBy = "user")
+    @JsonIgnore
+    private List<Task> tasks = new ArrayList<>();
 }

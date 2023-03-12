@@ -26,8 +26,16 @@ public class UserService {
         return user;
     }
 
+    public void updateUser(User foundUser) {
+        userRepository.save(foundUser);
+    }
+
     public List<User> getAllUsers() {
         return userRepository.findAll();
+    }
+
+    public User getUserById(Long userId) {
+        return userRepository.findById(userId).orElseThrow(IllegalArgumentException::new);
     }
 
     private void validateUser(User newUser) {

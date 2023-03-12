@@ -1,4 +1,4 @@
-import React, {FC, useEffect, useLayoutEffect, useState} from "react";
+import React, {FC, useLayoutEffect, useState} from "react";
 import {ToDoElement} from "./ToDoElement";
 import {ToDo} from "../model/logic/ToDo";
 import {useSelector} from "react-redux";
@@ -27,7 +27,7 @@ export const MainPageElements: FC = () => {
     });
 
     return (
-        <div className={'flex flex-col items-center gap-2'}>
+        <div className={'flex flex-col items-center gap-2 h-full'}>
             {jsxElements}
         </div>
     )

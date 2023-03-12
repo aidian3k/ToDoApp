@@ -1,9 +1,9 @@
 export interface ToDo {
-    day: number,
-    month: number,
-    year: number
+    days: number,
+    months: number,
+    years: number
     name: string,
     description: string,
     completed: boolean,
-    hour: number
+    hours: number
 }

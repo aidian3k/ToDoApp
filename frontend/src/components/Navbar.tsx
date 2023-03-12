@@ -45,7 +45,7 @@ export const Navbar: FC = () => {
                     </div>
 
                     <h1 className="sm:ml-2 ml-0 text-xl font-extrabold text-gray-900 dark:text-white">
-                        <span className="text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400">Welcome</span>{user.email.substring(10)}
+                        <span className="text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400">Welcome </span>{user.email}
                         </h1>
                 </div>
 

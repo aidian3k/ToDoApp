@@ -10,25 +10,43 @@ import {ToDo} from "../../model/logic/ToDo";
 import axios from "axios";
 import {User} from "../../model/logic/User";
 import {useNavigate} from "react-router-dom";
+import {Spinner} from "../errors/Spinner";
+import {InputError} from "../errors/InputError";
 
 export const ToDoCreator: FC = () => {
     const date = useSelector<RootState, string>(state => state.date.value);
     const [header, setHeader] = useState<string>('');
     const [notes, setNotes] = useState<string>('');
     const [hour, setHour] = useState<string>('');
+    const [loading, setLoading] = useState<boolean>(false);
+    const [error, setError] = useState<boolean>(false);
     const user: User = useSelector<RootState, User>(state => state.user.value);
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
     const handleAdd = async () => {
-        let currentDate = new Date();
-        let toDoObject: ToDo = {month: currentDate.getMonth(), description: notes
-            , name: header, day: Number(date), year: currentDate.getFullYear(), hour: Number(hour), completed: false};
+        if(header === '' || notes == '' || hour === '') {
+            setError(true);
+            return;
+        }
 
-        await axios.post('http://localhost:8080/api/v1/' + user.id + '/createTask', toDoObject);
-        await new Promise(resolve => setTimeout(resolve, 3000));
-        await dispatch(changeDate(String(new Date().getDate())));
-        navigate('/main-page');
+        let currentDate = new Date();
+        let toDoObject: ToDo = {months: currentDate.getMonth(), description: notes
+            , name: header, days: Number(date), years: currentDate.getFullYear(), hours: Number(hour), completed: false};
+
+        try {
+            setLoading(true);
+            const {data} = await axios.post('http://localhost:8080/api/v1/tasks', toDoObject);
+            await axios.put('http://localhost:8080/api/v1/users/' + user.id + '/tasks/' + data.id, toDoObject);
+            await new Promise(resolve => setTimeout(resolve, 3000));
+
+            await dispatch(changeDate(String(new Date().getDate())));
+            navigate('/main-page');
+        } catch(err) {
+            console.log(err);
+        } finally {
+            setLoading(false);
+        }
     }
 
     return (
@@ -58,13 +76,13 @@ export const ToDoCreator: FC = () => {
                                 dispatch(changeDate(tomorrow.toLocaleDateString()));
                             }}
                     >
-                        <img src={today} className={'w-4 h-4'}/>
+                        <img src={today} className={'w-4 h-4'} alt={''}/>
                         Tomorrow
                     </button>
                 </div>
                 <h2 className={'font-bold text-white text-xl p-2'}>Chosen date: {date === '' ? new Date().toLocaleDateString() : date}</h2>
                 <div className={'flex p-1 gap-3 justify-center'}>
-                    <img src={bellColor} className={'w-8 h-8'}/>
+                    <img src={bellColor} className={'w-8 h-8'} alt={''}/>
                     <input type="text" id="company"
                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-1/4 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                            placeholder="Hour" required onChange={(event) => setHour(event.target.value)}/>
@@ -73,11 +91,13 @@ export const ToDoCreator: FC = () => {
                         <option>AM</option>
                     </select>
                 </div>
+                {error && <InputError errorMessage={'Header, notes and hours cannot be empty!'}/>}
                 <button type="button"
-                        className="w-full text-white bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-purple-300 dark:focus:ring-purple-800 shadow-lg shadow-purple-500/50 dark:shadow-lg dark:shadow-purple-800/80 font-medium rounded-lg text-sm p-2 mt-2 text-center"
+                        className="w-full flex justify-center gap-1 text-white bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-purple-300 dark:focus:ring-purple-800 shadow-lg shadow-purple-500/50 dark:shadow-lg dark:shadow-purple-800/80 font-medium rounded-lg text-sm p-2 mt-2 text-center"
                         onClick={handleAdd}
                 >
-                    <h1 className={'font-semibold font-mono text-xl'}>ADD TASK</h1>
+                    <h1 className={'font-semibold font-mono text-xl'}>{!loading ? 'ADD TASK' : 'PROCESSING'}</h1>
+                    {loading && <Spinner/>}
                 </button>
             </div>
         </div>

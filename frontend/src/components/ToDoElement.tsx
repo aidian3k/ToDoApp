@@ -18,9 +18,9 @@ export const ToDoElement: FC<ToDo> = (props: ToDo) => {
                 <Checkbox/>
             </div>
             <div className={'flex flex-col sm:w-3/6 sm:p-5 p-0 gap-1'}>
-                    <p className=" font-semi-bold text-gray-500 dark:text-gray-400 italic ">03:00 PM</p>
-                    <h5 className="sm:text-xl text-base font-bold text-black">Meeting Ux Case</h5>
-                    <p className="font-bold text-gray-400 sm:text-base text-sm">Discuss Milton website</p>
+                    <p className=" font-semi-bold text-gray-500 dark:text-gray-400 italic ">{props.hours}:00 PM</p>
+                    <h5 className="sm:text-xl text-base font-bold text-black">{props.name}</h5>
+                    <p className="font-bold text-gray-400 sm:text-base text-sm">{props.description}</p>
             </div>
             <div className={'flex flex-col items-center sm:w-1/6 gap-5 p-3'}>
                 <button type="button"

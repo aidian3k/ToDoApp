@@ -1,9 +1,8 @@
 package todo.backend.project.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
-
-import java.util.Date;
 
 @Entity
 @Table(name = "TASKS")
@@ -18,5 +17,11 @@ public class Task {
     private Long id;
     private String name;
     private String description;
-    private Date endDate;
+    private Long days;
+    private Long months;
+    private Long hours;
+    private boolean completed;
+    @ManyToOne
+    @JsonIgnore
+    private User user;
 }

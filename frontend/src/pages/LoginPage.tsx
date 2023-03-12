@@ -39,8 +39,8 @@ export const LoginPage: FC = () => {
             if (foundUser === undefined || foundUser.password !== password) {
                 newError = {...error, message: 'Invalid email or password!', internal: true};
             } else {
-                dispatch(login({email: foundUser.name, password: foundUser.password, tasks: foundUser.tasks, id: foundUser.id}));
-                navigate('/main-page');
+                await dispatch(login({email: foundUser.email, password: foundUser.password, tasks: foundUser.tasks, id: foundUser.id}));
+                await navigate('/main-page');
             }
         } catch (error: any) {
             await new Promise(resolve => setTimeout(resolve, 2000));
