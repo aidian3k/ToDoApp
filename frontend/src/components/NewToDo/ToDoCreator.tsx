@@ -12,6 +12,7 @@ import {User} from "../../model/logic/User";
 import {useNavigate} from "react-router-dom";
 import {Spinner} from "../errors/Spinner";
 import {InputError} from "../errors/InputError";
+import {Footer} from "../../pages/Footer";
 
 export const ToDoCreator: FC = () => {
     const date = useSelector<RootState, string>(state => state.date.value);
@@ -31,7 +32,7 @@ export const ToDoCreator: FC = () => {
         }
 
         let currentDate = new Date();
-        let toDoObject: ToDo = {months: currentDate.getMonth(), description: notes
+        let toDoObject = {months: currentDate.getMonth(), description: notes
             , name: header, days: Number(date), years: currentDate.getFullYear(), hours: Number(hour), completed: false};
 
         try {
@@ -50,8 +51,8 @@ export const ToDoCreator: FC = () => {
     }
 
     return (
-        <div className={'flex justify-center items-center w-screen p-2'}>
-            <div className={'flex rounded-lg sm:w-2/5 w-4/5 bg-blue-800 justify-center flex-col items-center bg-gradient-to-r bg-[radial-gradient(ellipse_at_bottom,_var(--tw-gradient-stops))] from-amber-200 via-violet-600 to-sky-900'}>
+        <div className={'flex flex-col justify-center items-center w-screen'}>
+            <div className={'flex rounded-lg p-2 sm:w-2/5 w-4/5 bg-blue-800 justify-center flex-col items-center bg-gradient-to-r bg-[radial-gradient(ellipse_at_bottom,_var(--tw-gradient-stops))] from-amber-200 via-violet-600 to-sky-900'}>
                 <h1 className="mb-4 text-3xl font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-6xl"><span
                     className="text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400">New</span> Task</h1>
                 <input type="text"
@@ -100,6 +101,7 @@ export const ToDoCreator: FC = () => {
                     {loading && <Spinner/>}
                 </button>
             </div>
+            <Footer/>
         </div>
     )
 }

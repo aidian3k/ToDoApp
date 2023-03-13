@@ -10,8 +10,19 @@ import checkList from '../resources/check-list.svg';
 import delImage from '../resources/delete-svgrepo-com.svg';
 // @ts-ignore
 import edit from '../resources/edit-svgrepo-com.svg';
+import axios from "axios";
+import {useDispatch} from "react-redux";
+import {deleteOneElement} from "../redux/elementsSlice";
 
 export const ToDoElement: FC<ToDo> = (props: ToDo) => {
+    const dispatch = useDispatch();
+
+    const handleDelete = async () => {
+        const elementId = props.id;
+        await axios.delete('http://localhost:8080/api/v1/tasks/' + elementId);
+        dispatch(deleteOneElement(elementId));
+    }
+
     return (
         <div className={'flex gap-3 rounded-lg border border-gray-300 sm:p-0 p-5 sm:w-1/2 w-8/10 bg-gradient-to-r from-indigo-200 via-red-200 to-yellow-100'}>
             <div className={'flex items-center sm:w-1/6 justify-center'}>
@@ -29,7 +40,9 @@ export const ToDoElement: FC<ToDo> = (props: ToDo) => {
                     Edit
                 </button>
                 <button type="button"
-                        className="text-white bg-gradient-to-r flex gap-2 from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm p-2 text-center">
+                        className="text-white bg-gradient-to-r flex gap-2 from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm p-2 text-center"
+                        onClick={() => handleDelete()}
+                >
                     <img src={delImage} className={'w-4 h-4'} alt={''}/>
                     Delete
                 </button>

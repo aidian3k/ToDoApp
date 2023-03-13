@@ -52,4 +52,9 @@ public class TaskController {
 
         return foundUser.getTasks();
     }
+
+    @DeleteMapping("/tasks/{taskId}")
+    public void deleteSingleTask(@PathVariable Long taskId) {
+        taskService.dropSingleTask(taskId);
+    }
 }

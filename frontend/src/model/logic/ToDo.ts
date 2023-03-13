@@ -5,5 +5,6 @@ export interface ToDo {
     name: string,
     description: string,
     completed: boolean,
-    hours: number
+    hours: number,
+    id: number
 }

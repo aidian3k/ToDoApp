@@ -35,4 +35,10 @@ public class TaskService {
 
         return task;
     }
+
+    public void dropSingleTask(Long taskId) {
+        Task foundTask = getTaskById(taskId);
+
+        taskRepository.delete(foundTask);
+    }
 }

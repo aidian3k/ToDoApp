@@ -11,7 +11,6 @@ export const NewToDo: FC = () => {
             <MonthHeader/>
             <CalendarPicker/>
             <ToDoCreator/>
-            <Footer/>
         </div>
     )
 }
