@@ -81,7 +81,9 @@ export const ToDoCreator: FC = () => {
                         Tomorrow
                     </button>
                 </div>
-                <h2 className={'font-bold text-white text-xl p-2'}>Chosen date: {date === '' ? new Date().toLocaleDateString() : date}</h2>
+                <h2 className={'font-bold flex sm:flex-row flex-col text-white text-xl p-2 text-center'}>
+                    Chosen date: {date === '' ? new Date().toLocaleDateString() : date}
+                </h2>
                 <div className={'flex p-1 gap-3 justify-center'}>
                     <img src={bellColor} className={'w-8 h-8'} alt={''}/>
                     <input type="text" id="company"
@@ -94,7 +96,7 @@ export const ToDoCreator: FC = () => {
                 </div>
                 {error && <InputError errorMessage={'Header, notes and hours cannot be empty!'}/>}
                 <button type="button"
-                        className="w-full flex justify-center gap-1 text-white bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-purple-300 dark:focus:ring-purple-800 shadow-lg shadow-purple-500/50 dark:shadow-lg dark:shadow-purple-800/80 font-medium rounded-lg text-sm p-2 mt-2 text-center"
+                        className="w-full m-2 flex justify-center gap-1 text-white bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-purple-300 dark:focus:ring-purple-800 shadow-lg shadow-purple-500/50 dark:shadow-lg dark:shadow-purple-800/80 font-medium rounded-lg text-sm p-2 mt-2 text-center"
                         onClick={handleAdd}
                 >
                     <h1 className={'font-semibold font-mono text-xl'}>{!loading ? 'ADD TASK' : 'PROCESSING'}</h1>

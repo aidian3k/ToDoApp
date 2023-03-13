@@ -7,6 +7,7 @@ import todo.backend.project.service.TaskService;
 import todo.backend.project.service.UserService;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/v1")
@@ -53,8 +54,28 @@ public class TaskController {
         return foundUser.getTasks();
     }
 
+    @GetMapping("/users/{userId}/tasks/completed")
+    public List<Task> getUserCompletedTasks(@PathVariable Long userId) {
+        User foundUser = userService.getUserById(userId);
+
+        return foundUser.getTasks()
+                .stream()
+                .filter(task -> !task.isCompleted())
+                .collect(Collectors.toList());
+    }
+
     @DeleteMapping("/tasks/{taskId}")
     public void deleteSingleTask(@PathVariable Long taskId) {
         taskService.dropSingleTask(taskId);
+    }
+
+    @PutMapping("/tasks/{taskId}")
+    public Task updateTask(@PathVariable Long taskId) {
+        return taskService.updateTask(taskService.getTaskById(taskId));
+    }
+
+    @PutMapping("/tasks/{taskId}/toggleCompletion")
+    public Task setSpecificTaskCompleted(@PathVariable Long taskId) {
+        return taskService.toggleCompletingTask(taskId);
     }
 }

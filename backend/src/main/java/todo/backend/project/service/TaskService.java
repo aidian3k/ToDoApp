@@ -41,4 +41,11 @@ public class TaskService {
 
         taskRepository.delete(foundTask);
     }
+
+    public Task toggleCompletingTask(Long taskId) {
+        Task foundTask = getTaskById(taskId);
+        foundTask.setCompleted(!foundTask.isCompleted());
+
+        return foundTask;
+    }
 }

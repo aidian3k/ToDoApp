@@ -11,9 +11,20 @@ export const elementsSlice = createSlice({
         },
         deleteOneElement: (state, action: PayloadAction<Number>) => {
             state.value = state.value.filter(element => element.id !== action.payload);
+        },
+        updateOneElement(state, action: PayloadAction<Number>) {
+            let foundElement: ToDo | undefined = state.value.find(element => element.id === action.payload);
+
+            if(foundElement === undefined) {
+                return;
+            }
+
+            foundElement = {...foundElement, completed: !foundElement.completed};
+            state.value = state.value.filter(element => element.id !== action.payload);
+            state.value.push(foundElement);
         }
     }
 });
 
 export default elementsSlice.reducer;
-export const {initializeAllElements, deleteOneElement} = elementsSlice.actions;
+export const {initializeAllElements, deleteOneElement, updateOneElement} = elementsSlice.actions;

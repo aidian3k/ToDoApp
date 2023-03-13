@@ -5,7 +5,7 @@ import logo from '../resources/logo.png';
 
 export const Footer: FC = () => {
     return (
-        <footer className="bg-gray-900 w-full">
+        <footer className="bg-gray-900 w-full sticky bottom-0 mt-3">
             <div className="p-5 flex sm:flex-row flex-col sm:justify-evenly justify-center items-center gap-2">
                 <Link to="/login" className="flex items-center self-start">
                     <img src={logo} className="h-8 mr-3"  alt={''}/>
