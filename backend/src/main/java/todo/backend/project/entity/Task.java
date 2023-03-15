@@ -24,4 +24,10 @@ public class Task {
     @ManyToOne
     @JsonIgnore
     private User user;
+
+    @Override
+    public boolean equals(Object comparingObject) {
+        return comparingObject instanceof Task
+                && ((Task) comparingObject).id == this.id;
+    }
 }

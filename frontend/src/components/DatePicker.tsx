@@ -48,10 +48,13 @@ export const ListElement: FC<{ numberDate: number, dayWeek: string }> = (props) 
     const currentMonthString = new Date().getMonth() < 10 ? '0' + (new Date().getMonth() + 1) : new Date().getMonth() + 1;
     const date = useDate();
 
+
     return (
         <button
             className="sm:w-14 sm:h-14 w-10 h-10 flex flex-col sm:p-3 p-1 border border-sky-500 rounded-md bg-pink-800 text-center items-center hover:bg-pink-600 text-center"
-            onClick={() => dispatch(changeDate(currentDayString + '.' + currentMonthString + '.' + date.year))}
+            onClick={() => {
+                dispatch(changeDate(currentDayString + '.' + currentMonthString + '.' + date.year));
+            }}
         >
             <p className="text-xs font-medium text-gray-800 dark:text-white">{props.numberDate}</p>
             <p className="text-xs font-medium text-gray-800 dark:text-white">{props.dayWeek}</p>

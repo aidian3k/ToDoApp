@@ -8,6 +8,10 @@ import {RegisterPage} from "./pages/RegisterPage";
 import {MainPage} from "./pages/MainPage";
 import {NewToDo} from "./pages/NewToDo";
 import store from "./redux/store";
+import {ToDoCreator} from "./components/NewToDo/ToDoCreator";
+import {NewTaskNav} from "./components/NewToDo/NewTaskNav";
+import {CalendarPicker, MonthHeader} from "./components/NewToDo/CalendarPicker";
+import {EditToDo} from "./pages/EditToDo";
 
 const routes = createBrowserRouter([
     {
@@ -25,6 +29,10 @@ const routes = createBrowserRouter([
     {
         path: '/new-todo',
         element: <NewToDo/>
+    },
+    {
+        path: '/edit-task',
+        element: <EditToDo/>
     }
 ])
 

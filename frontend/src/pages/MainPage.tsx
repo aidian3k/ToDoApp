@@ -10,7 +10,6 @@ export const MainPage: FC = () => {
     return (
         <div>
             <Navbar/>
-            <DatePicker/>
             <MenuType/>
             <MainPageElements/>
             <div className={'flex items-center justify-center p-10'}>

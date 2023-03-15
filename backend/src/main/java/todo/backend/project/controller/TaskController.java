@@ -60,7 +60,27 @@ public class TaskController {
 
         return foundUser.getTasks()
                 .stream()
-                .filter(task -> !task.isCompleted())
+                .filter(Task::isCompleted)
+                .collect(Collectors.toList());
+    }
+
+    @GetMapping("/users/{userId}/tasks/day/{day}")
+    public List<Task> getUserTasksOnDay(@PathVariable Long userId, @PathVariable Long day) {
+        User foundUser = userService.getUserById(userId);
+
+        return foundUser.getTasks()
+                .stream()
+                .filter(task -> task.getDays() == day)
+                .collect(Collectors.toList());
+    }
+
+    @GetMapping("/users/{userId}/tasks/active")
+    public List<Task> getUserActiveTasks(@PathVariable Long userId) {
+        User foundUser = userService.getUserById(userId);
+
+        return foundUser.getTasks()
+                .stream()
+                .filter(element -> !element.isCompleted())
                 .collect(Collectors.toList());
     }
 
@@ -69,13 +89,13 @@ public class TaskController {
         taskService.dropSingleTask(taskId);
     }
 
-    @PutMapping("/tasks/{taskId}")
-    public Task updateTask(@PathVariable Long taskId) {
-        return taskService.updateTask(taskService.getTaskById(taskId));
+    @PutMapping("/tasks")
+    public Task updateTask(@RequestBody Task task) {
+        return taskService.updateTask(task);
     }
 
-    @PutMapping("/tasks/{taskId}/toggleCompletion")
-    public Task setSpecificTaskCompleted(@PathVariable Long taskId) {
-        return taskService.toggleCompletingTask(taskId);
+    @PatchMapping("/users/{userId}/tasks")
+    public Task updateUserTask(@PathVariable Long userId, @RequestBody Task updateTask) {
+        return taskService.updateUserTask(userId, updateTask);
     }
 }

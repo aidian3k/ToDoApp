@@ -3,25 +3,21 @@ import {ToDo} from "../model/logic/ToDo";
 
 const initialState = {value: [] as ToDo[]};
 export const elementsSlice = createSlice({
-    name: 'elements',
-    initialState: initialState,
-    reducers: {
+    name: 'elements', initialState: initialState, reducers: {
         initializeAllElements: (state, action: PayloadAction<ToDo[]>) => {
             state.value = action.payload;
-        },
-        deleteOneElement: (state, action: PayloadAction<Number>) => {
+        }, deleteOneElement: (state, action: PayloadAction<Number>) => {
             state.value = state.value.filter(element => element.id !== action.payload);
-        },
-        updateOneElement(state, action: PayloadAction<Number>) {
+        }, updateOneElement(state, action: PayloadAction<Number>) {
             let foundElement: ToDo | undefined = state.value.find(element => element.id === action.payload);
 
-            if(foundElement === undefined) {
+            if (foundElement === undefined) {
                 return;
             }
 
             foundElement = {...foundElement, completed: !foundElement.completed};
             state.value = state.value.filter(element => element.id !== action.payload);
-            state.value.push(foundElement);
+            state.value = [foundElement, ...state.value];
         }
     }
 });
